@@ -6,17 +6,18 @@ This repository contains the code to reproduce the results of the paper entitled
 
 **Step 1**
 
-Download the datasets and locate them in the folder `./data`. The artist information should be also located in the same folder; it can be downloaded from [here](https://zenodo.org/record/3748787).
+For the purpose of the course, I've already added the data needed to the `data/`-folder (otherwise you'd need to download a 42GB file).
+The file `data/raw/LFM-1b/LFM-1b_LEs.txt` now only contains 50.000 lines as opposed to the original 1.088.161.692 lines (hence the '1b' in the filename).
 
-### OPTIONAL: start virtual environment for python3.9
+### OPTIONAL: start virtual environment for python3.10
 
-    # Make sure you have a working version of python3.9 installed
+    # Make sure you have a working version of python3.10 installed
     # Create virtual env with venv
     pip install virtualenv
-    python3.9 -m venv python3.9-env
+    python3.10 -m venv python3.10-env
 
     # Activate
-    source python3.9-env/bin/activate
+    source python3.10-env/bin/activate
 
 ### Install requirements
 
@@ -25,27 +26,35 @@ Install dependencies specified in requirements.txt
     # With pip
     pip install -r requirements.txt
 
-    # Troubleshooting for MacOS 11 and up
-
+Troubleshooting for MacOS 11 and up
+* Make sure your Xcode installation is up to date
+* https://github.com/scipy/scipy/issues/13409
+* https://stackoverflow.com/questions/65825346/pip-install-pandas-results-in-error-python3-8-pycharm-apple-silicon
 
 **Step 2**
 
-Before starting to generate recommendations the data has to be processed and formatted: 
+Before starting to generate recommendations the data has to be processed and formatted.
+Run the following commands from the base directory of the repository: 
 
- - `python generate_mtrx.py` : Generate matrix for artists using the LFM-1b dataset
- - `python generate_mtrx_360k.py`: Generate matrix for artists using LFM-360k dataset
- - `python generate_mtrx_tracks.py`: Genrate matrix with tracks using LFM-1b dataset
+ - `python src/generate_mtrx.py` : Generate matrix for artists using the LFM-1b dataset
+
+**Warning: Stop here if you're reproducing the process for the course**
+
+Everything below is not yet modified to be reproducible without needing the full data set.
+
+ - `python src/generate_mtrx_360k.py`: Generate matrix for artists using LFM-360k dataset
+ - `python src/generate_mtrx_tracks.py`: Generate matrix with tracks using LFM-1b dataset
 
 **Step 3**
 
 To run the first experiment (generate artist recommendations) the following scripts must be executed:
 
- - `python model_predict.py` : Generate recommendations for artists using the LFM-1b dataset
- - `python model_predict_360k.py`: Generate artist recommendations using the LFM-360k dataset
+ - `python src/model_predict.py` : Generate recommendations for artists using the LFM-1b dataset
+ - `python src/model_predict_360k.py`: Generate artist recommendations using the LFM-360k dataset
 
 To run the second experiment (generate track recommendations) the following script must be executed:
 
- - `python model_predict_tracks.py`: Genrate track recommendations using the LFM-1b dataset
+ - `python src/model_predict_tracks.py`: Genrate track recommendations using the LFM-1b dataset
 
 **Step 4**
 
