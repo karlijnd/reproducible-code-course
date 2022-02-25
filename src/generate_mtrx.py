@@ -14,7 +14,11 @@ dataset_location = 'data/LFM-1b/LFM-1b_LEs.txt'
 gender_location = 'data/lfm-gender.json'
 #random.seed(42)
 
-def split(test_size, artists_gender):
+def split(test_size, artists_gender, dataset_location):
+    '''
+    5 subsets are made from the original artist gender file.
+    Testset size is set to be 20% of the full dataset by default.
+    '''
     artists_catalog = {}
     artists_users = {}
     last_user = None
@@ -32,12 +36,14 @@ def split(test_size, artists_gender):
     fan_users_dict = {}
     counts_dict = {}
     user_pos = {}
-    count = 0
 
+    count = 0
     for line in tqdm.tqdm(open(dataset_location)):
+        # Make new entry for each artist in catalog, if gender is available
         hists = line.strip().split('\t')
         user_pos[hists[0]] = count
         if hists[1] in artists_gender:
+            # Gender is available for this particular artist
             if hists[1] not in artists_catalog:
                 artists_catalog[hists[1]] = set()
             artists_catalog[hists[1]].add(hists[3])
