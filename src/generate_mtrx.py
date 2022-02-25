@@ -1,25 +1,27 @@
-import tqdm
-import os
-import random
-import pickle
 import json
-import pandas as pd
-
-from sklearn.model_selection import train_test_split
-import numpy as np
-from scipy import sparse
+import os
+import pickle
+import random
 from collections import Counter, defaultdict
+
+import numpy as np
+import pandas as pd
+import tqdm
+from scipy import sparse
+from sklearn.model_selection import train_test_split
 
 dataset_location = 'data/LFM-1b/LFM-1b_LEs.txt'
 gender_location = 'data/lfm-gender.json'
 #random.seed(42)
 
-def split(test_size, artists_gender):
+def split(test_size, artists_gender, dataset_location):
+    '''
+    5 subsets are made from the original artist gender file.
+    Testset size is set to be 20% of the full dataset by default.
+    '''
     artists_catalog = {}
     artists_users = {}
     last_user = None
-    fan_data_awe = []
-    fan_data_eng = []
     fan_data_play = []
     fan_row_train = []
     fan_col_train = []
@@ -34,14 +36,14 @@ def split(test_size, artists_gender):
     fan_users_dict = {}
     counts_dict = {}
     user_pos = {}
-    count = 0
-    max_engagement = {}
-    max_awearnes = {}
 
+    count = 0
     for line in tqdm.tqdm(open(dataset_location)):
+        # Make new entry for each artist in catalog, if gender is available
         hists = line.strip().split('\t')
         user_pos[hists[0]] = count
         if hists[1] in artists_gender:
+            # Gender is available for this particular artist
             if hists[1] not in artists_catalog:
                 artists_catalog[hists[1]] = set()
             artists_catalog[hists[1]].add(hists[3])
@@ -59,6 +61,7 @@ def split(test_size, artists_gender):
             counts_dict[hists[0]][hists[1]] = {'t': 0}
         counts_dict[hists[0]][hists[1]]['t'] += 1
         last_user = hists[0]
+
         if user_pos[last_user] == count:
             counts = counts_dict[last_user]
             artist_fan = []
@@ -82,6 +85,7 @@ def split(test_size, artists_gender):
             split = round(len(artist_fan)*test_size)
             train_u = artist_fan[split:]
             test_u = artist_fan[:split]
+
             for item, play in train_u:
                 if item not in fan_items_dict:
                     fan_items_dict[item] = len(fan_item_ids)
@@ -89,7 +93,6 @@ def split(test_size, artists_gender):
                 fan_col_train.append(fan_items_dict[item])
                 fan_row_train.append(fan_users_dict[last_user])
                 fan_data_play.append(play)
-            #test_u_sorted = sorted([(a,v,p) for a,v,p in test_u], key=lambda x: x[1])
             fan_test_u = []
             for item, play in test_u:
                 if item not in fan_items_dict:

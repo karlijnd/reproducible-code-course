@@ -2,6 +2,12 @@
 
 This repository contains the code to reproduce the results of the paper entitled "Break the Loop: Gender Imbalance in Music Recommenders", by Andres Ferraro, Xavier Serra, and Christine Bauer.
 
+## Prerequisites
+
+* pip
+* python3.9 or 3.10
+* a local clone of this repository
+
 ## Instructions
 
 **Step 1**
@@ -38,7 +44,7 @@ Run the following commands from the base directory of the repository:
 
  - `python src/generate_mtrx.py` : Generate matrix for artists using the LFM-1b dataset
 
-**Warning: Stop here if you're reproducing the process for the course**
+**WARNING: Stop here if you're reproducing the process for the course**
 
 Everything below is not yet modified to be reproducible without needing the full data set.
 
@@ -98,4 +104,4 @@ Andrés Ferraro, Xavier Serra, and Christine Bauer (2021). Break the Loop: Gende
 
 ## License
 
-This project is licensed under the terms of the [MIT License](/LICENSE.md)
+This project is licensed under the terms of the [MIT License](/LICENSE.md).
