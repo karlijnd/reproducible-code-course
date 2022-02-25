@@ -2,6 +2,7 @@ import json
 import os
 import pickle
 import random
+from pathlib import Path
 from collections import Counter, defaultdict
 
 import numpy as np
@@ -103,6 +104,10 @@ def split(test_size, artists_gender, dataset_location):
     return fan_data_play, fan_row_train, fan_col_train, fan_test_data, fan_items_dict, fan_users_dict
 
 if __name__== "__main__":
+
+    # Make sure there is an output folder
+    Path("data/processed/").mkdir(parents=True, exist_ok=True)
+
     artists_gender = json.load(open(gender_location))
     fan_data_play, fan_row_train, fan_col_train, fan_test_data, fan_items_dict, fan_users_dict= split(0.2, artists_gender, dataset_location)
 
