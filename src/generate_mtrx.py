@@ -18,8 +18,6 @@ def split(test_size, artists_gender):
     artists_catalog = {}
     artists_users = {}
     last_user = None
-    fan_data_awe = []
-    fan_data_eng = []
     fan_data_play = []
     fan_row_train = []
     fan_col_train = []
@@ -35,8 +33,6 @@ def split(test_size, artists_gender):
     counts_dict = {}
     user_pos = {}
     count = 0
-    max_engagement = {}
-    max_awearnes = {}
 
     for line in tqdm.tqdm(open(dataset_location)):
         hists = line.strip().split('\t')
@@ -59,6 +55,7 @@ def split(test_size, artists_gender):
             counts_dict[hists[0]][hists[1]] = {'t': 0}
         counts_dict[hists[0]][hists[1]]['t'] += 1
         last_user = hists[0]
+
         if user_pos[last_user] == count:
             counts = counts_dict[last_user]
             artist_fan = []
@@ -82,6 +79,7 @@ def split(test_size, artists_gender):
             split = round(len(artist_fan)*test_size)
             train_u = artist_fan[split:]
             test_u = artist_fan[:split]
+
             for item, play in train_u:
                 if item not in fan_items_dict:
                     fan_items_dict[item] = len(fan_item_ids)
@@ -89,7 +87,6 @@ def split(test_size, artists_gender):
                 fan_col_train.append(fan_items_dict[item])
                 fan_row_train.append(fan_users_dict[last_user])
                 fan_data_play.append(play)
-            #test_u_sorted = sorted([(a,v,p) for a,v,p in test_u], key=lambda x: x[1])
             fan_test_u = []
             for item, play in test_u:
                 if item not in fan_items_dict:
