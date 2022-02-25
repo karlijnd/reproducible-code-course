@@ -1,14 +1,14 @@
-import tqdm
-import os
-import random
-import pickle
 import json
-import pandas as pd
-
-from sklearn.model_selection import train_test_split
-import numpy as np
-from scipy import sparse
+import os
+import pickle
+import random
 from collections import Counter, defaultdict
+
+import numpy as np
+import pandas as pd
+import tqdm
+from scipy import sparse
+from sklearn.model_selection import train_test_split
 
 dataset_location = 'data/LFM-1b/LFM-1b_LEs.txt'
 gender_location = 'data/lfm-gender.json'
