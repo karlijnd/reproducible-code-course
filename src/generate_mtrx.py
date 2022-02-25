@@ -105,10 +105,12 @@ def split(test_size, artists_gender, dataset_location):
 
 if __name__== "__main__":
     artists_gender = json.load(open(gender_location))
-
+    fan_data_play, fan_row_train, fan_col_train, fan_test_data, fan_items_dict, fan_users_dict= split(0.2, artists_gender, dataset_location)
 
     # TODO the commands below are not working due to the artificially small dataset used for the course's purposes
     #fan_train_play = sparse.coo_matrix((fan_data_play, (fan_row_train, fan_col_train)), dtype=np.float32)
     #print("TRAIN USERS", fan_train_play.shape)
     #sparse.save_npz(os.path.join('data', 'processed', 'rain_data_playcount.npz'), fan_train_play)
     pickle.dump(fan_test_data, open(os.path.join('data', 'processed', 'test_data.pkl'), 'wb'))
+    pickle.dump(fan_items_dict, open(os.path.join('data','processed', 'items_dict.pkl'), 'wb'))
+    pickle.dump(fan_users_dict, open(os.path.join('data','processed', 'users_dict.pkl'), 'wb'))
