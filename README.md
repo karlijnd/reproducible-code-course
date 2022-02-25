@@ -15,6 +15,8 @@ This repository contains the code to reproduce the results of the paper entitled
 For the purpose of the course, I've already added the data needed to the `data/`-folder (otherwise you'd need to download a 42GB file).
 The file `data/raw/LFM-1b/LFM-1b_LEs.txt` now only contains 50.000 lines as opposed to the original 1.088.161.692 lines (hence the '1b' in the filename).
 
+NOTE FOR COURSE REPRODUCERS: ONLY `src/generate_mtrx.py` HAS BEEN REVIEWED (PARTLY), DO NOT LOOK AT THE OTHER CODE.
+
 ### OPTIONAL: start virtual environment for python3.10
 
     # Make sure you have a working version of python3.10 installed
