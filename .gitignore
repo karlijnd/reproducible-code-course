@@ -44,7 +44,7 @@ python3.10-env/
 .DS_Store
 
 # Data folder
-data2/
+data/processed/
 
 # Git
 .gitkeep
