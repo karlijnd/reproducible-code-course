@@ -10,9 +10,8 @@ import tqdm
 from scipy import sparse
 from sklearn.model_selection import train_test_split
 
-dataset_location = 'data/LFM-1b/LFM-1b_LEs.txt'
-gender_location = 'data/lfm-gender.json'
-#random.seed(42)
+dataset_location = 'data/raw/LFM-1b/LFM-1b_LEs.txt'
+gender_location = 'data/raw/lfm-gender.json'
 
 def split(test_size, artists_gender, dataset_location):
     '''
